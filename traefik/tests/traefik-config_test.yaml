@@ -158,3 +158,16 @@ tests:
         - contains:
             path: spec.template.spec.containers[0].args
             content: "--ping.entrypoint=web"
+  - it: should set KubernetesCRD allowCrossNamespace
+    set:
+      providers:
+        kubernetesCRD:
+          allowCrossNamespace: false
+          enabled: true
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].args
+          content: "--providers.kubernetescrd.allowcrossnamespace=false"
+      - contains:
+          path: spec.template.spec.containers[0].args
+          content: "--providers.kubernetescrd"
